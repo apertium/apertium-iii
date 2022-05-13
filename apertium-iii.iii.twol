@@ -1,0 +1,176 @@
+Alphabet
+ A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+ a b c d e f g h i j k l m n o p q r s t u v w x y z
+ %{A%}:a %>:0
+
+%{red%}:0
+%{X%}:0
+%{X%}:x
+%{infx%}:0
+
+%{L1%}:0
+%{L2%}:0
+%{L3%}:0
+%{L4%}:0
+%{L5%}:0
+
+;
+
+Sets
+
+Vowels = i a o e u y ;
+V2 = r e o ;
+Tn = p x t ;
+DbCons = b d g s j ;
+Cons = b c d f g h j k l m n p q r s t v w x y z ;
+HCons = m n l x ;
+NCons = j r g z b d y;
+MCons = g ;
+SCons = h ;
+CCons = h ;
+ZCons = h ;
+
+
+Rules
+
+"{X} outputs as {x} before dde"
+%{X%}:x <=> .#. [\:Vowels|:y]* :Vowels ([:r|:e|:o]) _  %>: :d :d :e .#. ;
+
+"{X} outputs as {x} before su"
+%{X%}:x <=> .#. [\:Vowels|:y]* :Vowels ([:r|:e|:o]) _  %>: :s :u .#. ;
+
+!Tone change for monosyllabic noun/adj before reduplication
+
+"{X} outputs as {x} before adjective reduplication to form alternative question or before noun reduplication to indicate quantity"
+%{X%}:x <=> .#. [\:Vowels|:y]* :Vowels ([:r|:e|:o]) _  %>: %{red%}: ;
+
+
+
+
+"H Deletion Rule"
+h:0 <=> _ HCons: Vowels: ([:r|:e|:o]) (Tn:) %>: %{infx%}: a: p: %>: ;
+
+!"N Deletion Rule"
+!n:0 <=> _ NCons: Vowels: ([:r|:e|:o]) (Tn:) %>: %{infx%}: a: p: %>: ;
+
+"M Deletion Rule"
+m:0 <=> _ MCons: Vowels: ([:r|:e|:o]) (Tn:) %>: %{infx%}: a: p: %>: ;
+
+"S Deletion Rule"
+s:0 <=> _ SCons: Vowels: ([:r|:e|:o]) (Tn:) %>: %{infx%}: a: p: %>: ;
+
+"C Deletion Rule"
+c:0 <=> _ CCons: Vowels: ([:r|:e|:o]) (Tn:) %>: %{infx%}: a: p: %>: ;
+
+"S Deletion Rule"
+z:0 <=> _ ZCons: Vowels: ([:r|:e|:o]) (Tn:) %>: %{infx%}: a: p: %>: ;
+
+
+!"DbCons Deletion Rule"
+!DbCons:0 <=> _ DbCons: Vowels: ([:r|:e|:o]) (Tn:) %>: %{infx%}: a: p: %>: ;
+
+!"DbCons Deletion Rule"
+!DbCons:0 <=> DbCons: _ Vowels: ([:r|:e|:o]) (Tn:) %>: %{infx%}: a: p: %>: ;
+
+!"HCons Rule"
+!HCons:0 <=> h: _ Vowels: ([:r|:e|:o]) (Tn:) %>: %{infx%}: a: p: %>: ;
+
+!"NCons Rule"
+!NCons:0 <=> n: _ Vowels: ([:r|:e|:o]) (Tn:) %>: %{infx%}: a: p: %>: ;
+
+!"MCons Rule"
+!MCons:0 <=> m: _ Vowels: ([:r|:e|:o]) (Tn:) %>: %{infx%}: a: p: %>: ;
+
+!"SCons Rule"
+!h:0 <=> s: _ Vowels: ([:r|:e|:o]) (Tn:) %>: %{infx%}: a: p: %>: ;
+
+!"CCons Rule"
+!h:0 <=> c: _ Vowels: ([:r|:e|:o]) (Tn:) %>: %{infx%}: a: p: %>: ;
+
+!"ZCons Rule"
+!h:0 <=> z: _ Vowels: ([:r|:e|:o]) (Tn:) %>: %{infx%}: a: p: %>: ;
+
+
+"Second Cons Deletion Rule"
+Cx:0 <=> (Cy): _ Vowels: ([:r|:e|:o]) (Tn:) %>: %{infx%}: a: p: %>: ;
+         where Cx in Cons
+               Cy in Cons
+               matched ;
+
+
+
+"Vowel Deletion Rule"
+Vowels:0 <=>  Cons: _ ([:r|:e|:o]) (Tn:) %>: %{infx%}: a: p: %>: ;
+              DbCons DbCons: _ ([:r|:e|:o]) (Tn:) %>: %{infx%}: a: p: %>: ;
+              .#. _ ([:r|:e|:o]) (Tn:) %>: %{infx%}: a: p: %>: ;
+
+
+!HCons Mapping Rules
+
+"L1-h Mapping Rule"
+%{L1%}:h <=> h: HCons: Vowels: ([:r|:e|:o]) (Tn:) %>: %{infx%}: a: p: %>: _ ;
+
+!"L1-n Mapping Rule"
+!%{L1%}:n <=> n: NCons: Vowels: ([:r|:e|:o]) (Tn:) %>: %{infx%}: a: p: %>: _ ;
+
+"L1-m Mapping Rule"
+%{L1%}:m <=> m: MCons: Vowels: ([:r|:e|:o]) (Tn:) %>: %{infx%}: a: p: %>: _ ;
+
+"L1-s Mapping Rule"
+%{L1%}:s <=> s: SCons: Vowels: ([:r|:e|:o]) (Tn:) %>: %{infx%}: a: p: %>: _ ;
+
+"L1-c Mapping Rule"
+%{L1%}:c <=> c: CCons: Vowels: ([:r|:e|:o]) (Tn:) %>: %{infx%}: a: p: %>: _ ;
+
+"L1-z Mapping Rule"
+%{L1%}:z <=> z: ZCons: Vowels: ([:r|:e|:o]) (Tn:) %>: %{infx%}: a: p: %>: _ ;
+
+"L1-Cons Mapping Rule"
+%{L1%}:Cx <=> Cy: DbCons: Vowels: ([:r|:e|:o]) (Tn:) %>: %{infx%}: a: p: %>: _ ;
+              where Cx in DbCons
+                    Cy in DbCons
+                    matched ;
+
+"L2 Mapping Rule"
+%{L2%}:Cx <=> .#. Cy: Vowels: ([:r|:e|:o]) (Tn:) %>: %{infx%}: a: p: %>: %{L1%}: _ ;
+              where Cx in Cons
+                    Cy in Cons
+                    matched ;
+
+"L2 Double Consonant Mapping Rule"
+%{L2%}:Cx <=> Cy: DbCons: Vowels: ([:r|:e|:o]) (Tn:) %>: %{infx%}: a: p: %>: %{L1%}: _ ;
+              where Cx in DbCons
+                    Cy in DbCons
+                    matched ;
+
+
+"L3 Mapping Rule"
+%{L3%}:Vx <=> Vy: ([:r|:e|:o]) (Tn:) %>: %{infx%}: a: p: %>: %{L1%}: %{L2%}: _ ;
+              where Vx in Vowels
+                    Vy in Vowels
+                    matched ;
+
+"L4 Mapping Rule"
+%{L4%}:Vx <=> Vy: (Tn:) %>: %{infx%}: a: p: %>: %{L1%}: %{L2%}: %{L3%}:  _ ;
+              where Vx in V2
+                    Vy in V2
+                    matched ;
+
+"L5 (tone) Mapping Rule"
+%{L5%}:Tx <=> Ty %>: %{infx%}: a: p: %>: %{L1%}: %{L2%}: %{L3%}: %{L4%}: _ ;
+              where Tx in Tn
+                    Ty in Tn
+                    matched ;
+
+
+
+
+
+
+
+! Resources:
+! https://wiki.apertium.org/wiki/Starting_a_new_language_with_HFST#Enter_twol
+! https://kitwiki.csc.fi/twiki/bin/view/KitWiki/HfstHome
+! https://github.com/hfst/
+! https://wiki.apertium.org/wiki/Twol
+! https://wiki.apertium.org/wiki/Hfst

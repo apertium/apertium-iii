@@ -1,0 +1,86 @@
+# Firstly, we need to define what tags should be considered sentence delimiters. For this example, only full stop is set as delimiter.
+DELIMITERS = "<。>" ;
+
+# We can define sets for common tag clusters
+# LIST Case = (n s) (n p) ; # A set that matches either a Noun Singular or a Noun Plural
+LIST Prn = prn ;
+# LIST Det = det ;
+LIST N = n ;
+LIST V = v ;
+LIST CL = cl ;
+LIST COV = cov ;
+LIST ADJ = adj ;
+LIST BOS = (>>>) ;
+LIST EOS = (<<<) ;
+LIST QUOTE = quote ;
+LIST SU = nmlz_pers;
+LIST PART = part ;
+LIST ADVL = advl ;
+LIST ADV = adv ;
+LIST PR = pr ;
+LIST PRN = prn ;
+
+
+SECTION
+# If there is a singular noun to the right, I cannot be a verb or noun.
+# REMOVE (n) OR (v) IF (1 (n s)) ;
+
+# it's likely not to be a pronoun if it can also be a singular determiner and is followed by a singular noun
+  REMOVE N IF
+       (0 V)
+       (-1 CL) 
+       (1 V) ;
+       
+# If there's a preceding coverb, it is more likely that the following word is a verb.     
+  REMOVE N IF 
+       (0 V)
+       (-1 COV) ;
+# If it's a quote, it is going to be at the end of the sentence. Otherwise it is a COV.       
+  REMOVE COV IF
+       (0 QUOTE)
+       (1 EOS) ;
+
+# If there is a conjunction followed by a certain cohort of the same CASE as me, choose me.
+# SELECT $$Case IF (1 (cnjcoo) LINK 1C $$Case) ;
+
+# If there is an adjective after me, and a classifier two words after, I'm a noun
+  REMOVE V IF
+       (0 N)
+       (1 SU)
+       (2 CL) ;
+       
+# If there is an adjective before me, and a classifier after me, I'm a noun
+  REMOVE V IF
+        (0 N)
+        (-1 SU)
+        (1 CL) ; 
+        
+# If the morpheme can either be a particle or a verb, it's more likely a particle after another verb.
+  REMOVE V IF
+        (0 PART)
+        (-1 V) ;
+        
+# If the morpheme can either be a particle or a verb, it's more likely a particle at the end of a sentence/
+  REMOVE V IF 
+        (0 PART)
+        (1 EOS) ;
+
+# If the morpheme can either be a verb or an adverbializer and a verb, it's an adverbializer after an adjective.
+  REMOVE V IF 
+        (0 ADVL)
+        (-1 ADJ) ;
+        
+# If the morpheme can either be a pronoun or a preposition, it's more likely a prn after an adverb.
+  REMOVE PR IF
+        (0 PRN)
+        (-1 ADV) ;
+
+
+
+# Resources:
+# http://visl.sdu.dk/cg3.html
+# http://groups.google.com/group/constraint-grammar
+# http://kevindonnelly.org.uk/2010/05/constraint-grammar-tutorial/
+# https://wiki.apertium.org/wiki/Constraint_Grammar
+# https://wiki.apertium.org/wiki/Apertium_and_Constraint_Grammar
+

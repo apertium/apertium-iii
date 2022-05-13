@@ -1,0 +1,517 @@
+# Morphological Transducer for Sichuan Yi
+
+# Part of speech categories
+# <n>      # Noun
+# <v>      # Verb
+# <adj>    # Adjective
+# <num>    # Numeral
+# <cl>     # Classifier
+# <adv>    # Adverb
+# <prn>    # Pronoun
+# <cnjcoo>   # Conjunction
+# <vaux>   # Auxiliary verb
+# <part>   # Particle
+
+
+# Productive alternations
+# <dim>    # Diminutive
+# <aug>    # Augmentative
+# <qst>    # Question
+# <nmlz_act>   # Action normalizer
+# <nmlz_qlt>   # Quality normalizer
+# <nmlz_mnr>   # Manner normalizer
+# <adjz_easy>   # Easieness suffix
+# <adjz_hard>   # Difficulty suffix
+# <nmlz_act>   # Manner normalizer
+# <qnty>   # Quantity Reduplication
+# <int>   # Intensifictaion Reduplication
+# <col>   # Color ideophones
+
+# <sent>   # Sentence-ending punctuation
+# <guio>   # Hyphen
+# <cm>     # Comma
+# <apos>   # Apostrophe
+# <quot>   # Quotation mark
+# <lquot>  # Left quotation mark
+# <rquot>  # Right quotation mark
+# <lpar>   # Left parenthesis
+
+
+
+# Number morphology
+# <pl>     # Plural
+# <sg>     # Singular
+
+# Other symbols
+# >        # Morpheme boundary
+
+
+###############################################################################
+###                       M O R P H O T A C T I C S                         ###
+###############################################################################
+
+
+PATTERNS
+## AdjStem Patterns
+AdjStems [<adj>:]
+:SizePrefixes AdjStems [<adj>:] SizePrefixes:
+AdjStems [<adj>:] NegSuffixes
+:AdjStems AdjStems [<adj><qst>:]
+AdjStems [<adj>:] AdvlSuffixes
+
+
+## VerbStem Patterns
+VerbStems [<vblex>:]
+VerbStems [<vblex>:] NmlzSuffixes
+VerbStems [<vblex>:] AdjzSuffixes
+VerbStems :Intensification :VerbStems Intensification:
+VerbStems [<vblex>:] NegSuffixes
+
+## NounStem Patterns
+NounStems [<n>:]
+:NounStems [:>{red}] NounStems [<n><qnty>:]
+
+## Pronoun Patterns
+Pronouns [<prn>:]
+:Pronouns Pronouns [<prn><tn>:]
+
+## QuoteStems Patterns
+QuoteStems [<quote>:]
+
+## Preposition PATTERNS
+Preposition [<pr>:]
+
+## Postposition PATTERNS
+Postposition [<post>:]
+
+## Classifier PATTERNS
+Classifier [<cl>:]
+
+## Particles PATTERNS-lex|rtx-proc iii-zho.rtx.bin -T
+Particles [<part>:]
+
+## Determiner PATTERNS
+Determiner [<det>:]
+
+## Conjunction PATTERNS
+Conjunction [<cnjcoo>:]
+
+## Adverb PATTERNS
+Adverb [<adv>:]
+
+Number
+Punctuation
+
+LEXICON SizePrefixes
+<dim>:ix
+<aug>:a
+<aug>:ax
+
+
+LEXICON NegSuffixes
+<neg>:>{infx}ap>{L1}{L2}{L3}{L4}{L5}
+
+LEXICON NmlzSuffixes
+<nmlz_act>:lu
+<nmlz_qly>:jjux
+<nmlz_mnr>:tie
+<nmlz_loc>:dde
+<nmlz_pers>:su
+
+LEXICON AdjzSuffixes
+<adjz_easy>:sa
+<adjz_hard>:we
+
+LEXICON AdvlSuffixes
++mu<part>:mu
++muda<part>:muda
+
+LEXICON Intensification
+<v><int>:jjy
+
+
+
+
+###############################################################################
+###                          L E X I C O N                                  ###
+###############################################################################
+
+LEXICON AdjStems
+sho:sho{X}
+ssi:ssi{X}
+zhut:zhut
+du:du{X}
+ly:ly ##consider tone change
+ceqy:ceqy
+nrat:nrat
+nyi:nyi{X}
+fu:fu{X}
+nu:nu{X}
+zyr:zyr{X}
+guo:guo{X}
+nzyt:nzyt
+kepnyip:kepnyip
+wezze:wezze
+ahnat:ahnat
+axnyi:axnyi
+hxiekat:hxiekat
+ahni:ahni
+apnryr:apnryr
+ngeget:ngeget
+katgonyi:katgonyi
+rropzie:rropzie
+nzit:nzit
+kepnyix:kepnyix
+bap:bap
+
+LEXICON VerbStems
+sat:sat
+mgu:mgu
+hxip:hxip
+ndo:ndo
+ju:ju
+bi:bi
+zhe:zhe
+gu:gu
+hlu:hlu
+budex:budex
+syp:syp
+hxep:hxep
+yy:yy
+vy:vy
+sot:sot
+mga:mga
+hna:hna
+nyi:nyi
+ndup:ndup
+zze:zze
+yu:yu
+dde:dde
+su:su
+bbo:bbo
+jjie:jjie
+shyp:shyp
+go:go
+mgot:mgot
+ddie:ddie
+la:la
+lasix:lasix
+rep:rep
+ga:ga
+gup:gup
+wamgot:wamgot
+shep:shep
+jox:jox
+burlopbur:burlopbur
+bit:bit
+mu:mu
+depla:depla
+repsix:repsix
+ixgo:ixgo
+bbossox:bbossox
+mopddi:mopddi
+hxiplox:hxiplox
+zzi:zzi
+bbyx:bbyx
+nge:nge
+jipndip:jipndip
+bot:bot
+shyr:shyr
+jjo:jjo
+apjjo:apjjo
+tatxi:tatxi
+ngopdie:ngopdie
+ddopzyssi:ddopzyssi
+pohxo:pohxo
+sot:sot
+sup:sup
+ddieddur:ddieddur
+qi:qi
+sha:sha
+bbur:bbur
+gohxex:gohxex
+ddur:ddur
+kut:kut
+hxipryt:hxipryt
+jomga:jomga
+lotbuop:lotbuop
+yyx:yyx
+gge:gge
+
+LEXICON NounStems
+muddix:muddix
+mudi:mudi
+muhly:muhly
+lurmat:lurmat
+ke:ke{X}
+qi:qi{X}
+lot:lot
+jjie:jjie
+yi:yi
+co:co
+lyp:lyp
+nyitcy:nyitcy
+nzyke:nzyke
+lurkur:lurkur
+co:co
+ipko:ipko
+ipkobbux:ipkobbux
+xy:xy
+yyr:yyr
+yisu:yisu
+loxggu:loxggu
+lo:lo
+vat:vat
+bbo:bbo
+hxenjit:hxenjit
+qopbop:qopbop
+te:te
+ndip:ndip
+kolo:kolo
+bburma:bburma
+sytmuco:sytmuco
+bburmasytmuco:bburmasytmuco
+hxie:hxie
+ku:ku
+zza:zza
+hmatmop:hmatmop
+lupo:lupo
+latyy:latyy
+syt:syt
+rremop:rremop
+sisse:sisse
+ixyi:ixyi
+vot:vot
+va:va
+jjossy:jjossy
+vitgga:vitgga
+rrezza:rrezza
+jieshat:jieshat
+nry:nry
+cox:cox
+mopsu:mopsu
+bbapga:bbapga
+bbutvit:bbutvit
+yyx:yyx
+saddop:saddopW
+suxmu:suxmu
+zyxsse:zyxsse
+ggapmop:ggapmop
+ddop:ddop
+yophap:yophap
+yotvi:yotvi
+yoptiep:yoptiep
+yypmop:yypmop
+gopbo:gopbo
+jjut:jjut
+kex:kex
+bu:bu
+vatjji:vatjji
+wevi:wevi
+jeqyt:jeqyt
+bbutvie:bbutvie
+yo:yo
+hxe:hxe
+si:si
+hxopu:hxopu
+
+LEXICON Adverb
+hxiyip:hxiyip
+mu:mu
+cy:cy
+cyxluo:cyxluo
+ngeget:ngeget
+tat:tat
+ryrggurwmu:ryrggurwmu
+bur:bur
+aplop:aplop
+yipsy:yipsy
+mieplie:mieplie
+wa:wa
+ipnyip:ipnyip
+nyi:nyi
+
+LEXICON QuoteStems
+ddix:ddix
+
+
+LEXICON Determiner
+cyx:cyx
+
+
+LEXICON Particles
+ne:ne
+li:li
+njuo:njuo
+xip:xip
+tit:tit
+ddit:ddit
+ggex:ggex
+shex:shex
+sat:sat
+ox:ox
+mat:mat
+lox:lox
+ddeplox:ddeplox
+su:su
+cyx:cyx
+jjy:jjy
+
+
+LEXICON Preposition
+ddix:ddix
+sip:sip
+bbyp:bbyp
+die:die
+ddie:ddie
+shu:shu
+jox:jox
+ga:ga
+gep:gep
+da:da
+go:go
+six:six
+sat:sat
+njuo:njuo
+jop:jop
+nyipyuot:nyipyuot
+rroxmu:rroxmu
+nyi:nyi
+
+## double check
+hnox:hnox
+wex:wex
+
+LEXICON Postposition
+qo:qo
+chop:chop
+mo:mo
+mox:mox
+xi:xi
+sat:sat
+da:da
+goxsha:goxsha
+six:six
+
+
+LEXICON Pronouns
+ngat:ngat
+nga:nga
+ngax:ngax
+nop:nop
+nit:nit
+cy:cy
+cyx:cyx
+ngop:ngop
+ngopwox:ngopwox
+cop:cop
+xix:xix
+go:go
+ne:ne
+wox:wox
+cypnyit:cypnyit
+cyp:cyp
+hotpu:hotpu
+addit:addit
+xymip:xymip
+mugox:mugox
+copwox:copwox
+kaxddi:kaxddi
+
+LEXICON Classifier
+ma:ma
+pot:pot
+ji:ji
+qit:qit
+hmo:hmo
+pit:pit
+zi:zi
+zzyr:zzyr
+ggat:ggat
+jot:jot
+gu:gu
+bbut:bbut
+zha:zha
+gur:gur
+jjit:jjit
+wo:wo
+go:go
+yuot:yuot
+zhep:zhep
+
+LEXICON Conjunction
+sinip:sinip
+lox:lox
+tit:tit
+
+
+PATTERN Number
+Numeral+ [<num>:]
+Numbers [<num>:]
+
+LEXICON Numeral
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+
+LEXICON Numbers
+
+cyp:cyp
+nyip:nyip
+suo:suo
+ly:ly
+nge:nge
+fut:fut
+shyp:shyp
+hxit:hxit
+ggu:ggu
+ci:ci
+
+
+LEXICON Punctuation
+
+.<sent>:.
+..<sent>:..
+...<sent>:...
+;<sent>:;
+：<sent>:：
+!<sent>:!
+-<guio>:-
+—<guio>:—
+,<cm>:,
+?<sent>:?
+'<apos>:'
+"<quot>:"
+«<lquot>:«
+»<rquot>:»
+”<rquot>:”
+“<lquot>:“
+(<lpar>:(
+\]<rpar>:\]
+\[<lpar>:\[
+)<rpar>:)
+\\<sent>:\\
+\/<sent>:\/
+。<sent>:。
+。<sent>:。
+；<sent>:；
+！<sent>:！
+，<cm>:，
+、<sent>:、
+？<sent>:？
+# Resources:
+# https://github.com/apertium/lexd/blob/master/Usage.md
+# https://wiki.apertium.org/wiki/List_of_symbols
+# https://wiki.apertium.org/wiki/Starting_a_new_language_with_HFST#Lexicon
+# https://wiki.apertium.org/wiki/Lttoolbox_and_lexc
+# https://wiki.apertium.org/wiki/Apertium-specific_conventions_for_lexc
+# https://kitwiki.csc.fi/twiki/bin/view/KitWiki/HfstHome
+# https://github.com/hfst/
+# https://wiki.apertium.org/wiki/Hfst
